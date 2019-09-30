@@ -2,7 +2,9 @@
   <div class="alef-page1">
     <app-scale class="alef-page1__scale"></app-scale>
     <div class="alef-page1__content">
-      <div class="alef-page1__content-img"></div>
+      <div class="alef-page1__content-img-wrapper">
+        <div class="alef-page1__content-img"></div>
+      </div>
       <div class="alef-page1__content-descr">
         <h1 class="alef-title alef-page1__title">давайте станем выше вместе!</h1>
         <p class="alef-text alef-page1__subtitle">И не будем этого стесняться. Введи свои параметры роста и участвуй в розыгрыше призов.</p>
@@ -48,8 +50,8 @@ export default {
 
   .alef-page1__scale
     flex-shrink: 0
-    width: 15.65%
-    height: 96.26%
+    width: 29%
+    height: 95%
     border: 1px solid red
 
   .alef-page1__content
@@ -59,48 +61,58 @@ export default {
     flex-wrap: nowrap
     align-items: flex-start
     justify-content: flex-end
+    width: 71%
     height: 100%
-    border: 1px solid red
+    border: 1px solid green
 
-  .alef-page1__content-img
+  .alef-page1__content-img-wrapper
     position: relative
     order: 2
     flex-shrink: 0
-    // width: 76.14%
-    // height: 100%
-    // margin-left: -11.51%
-    // background-image: url('../assets/img/dyldy1-mob.png')
-    // background-size: cover
-    // background-position: bottom
-    // background-repeat: no-repeat
-    // background-image: url('../assets/img/dyldy.png')
-    // background-size: 152% 125%
-    // background-position-y: 27%
-    // background-position-x: 56%
-    // background-repeat: no-repeat
-    width: 242px
+    width: 300px
     height: 175px
-    margin-left: 0
-    background-image: url('../assets/img/dyldy1-tablet.png')
+
+  .alef-page1__content-img
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    width: 135%
+    height: 100%
+    margin-left: -33%
+    background-image: url('../assets/img/dyldy1-mob.png')
     background-size: cover
     background-position: bottom
     background-repeat: no-repeat
-    // border: 1px solid red
 
   .alef-page1__content-descr
     order: 1
-    z-index: 5
     position: relative
-    flex-grow: 1
+    // flex-grow: 1
     display: flex
     flex-direction: column
     justify-content: flex-end
     align-items: flex-start
-    border: 1px solid green
+    // width: 100%
+    // width: 210px
+    margin-bottom: -7px
+    padding-left: 15px
+    padding-right: 15px
+    border: 1px solid red
+
+  .alef-page1__title
+    margin: 0
+
+  .alef-page1__subtitle
+    margin: 0
+    margin-top: 10px
 
   .alef-page1__button
     width: 180px
     height: 40px
+    margin-top: 20px
+    padding: 0
 
   .alef-page1__warning
     display: none
@@ -109,25 +121,26 @@ export default {
     .alef-page1
       background-image: linear-gradient(to right, #ffcc08, #ff8400)
 
+    .alef-page1__scale
+      width: 19.13%
+      height: 97.75%
+
     .alef-page1__content
       flex-direction: row
-      align-items: center
+      align-items: flex-end
       justify-content: flex-start
+      width: 80.87%
+
+    .alef-page1__content-img-wrapper
+      order: 1
+      width: 374px
+      height: 400px
 
     .alef-page1__content-img
-      position: relative
-      order: 1
-      flex-shrink: 0
-      // width: 76.14%
-      // height: 100%
-      // margin-left: -10.4%
-      width: 494px
+      width: 135%
       height: 100%
-      margin-left: -68px
+      margin-left: -26%
       background-image: url('../assets/img/dyldy1-tablet.png')
-      background-size: cover
-      background-position: bottom
-      background-repeat: no-repeat
 
     .alef-page1__content-descr
       order: 2
@@ -141,18 +154,19 @@ export default {
       display: block
 
   @media (min-width: 990px)
+    .alef-page1__scale
+      width: 15.65%
+      height: 96.26%
+
+    .alef-page1__content-img-wrapper
+      width: 467px
+      height: 400px
+
     .alef-page1__content-img
-      position: relative
-      flex-shrink: 0
-      // width: 76.14%
-      // height: 100%
-      // margin-left: -11.51%
-      width: 627px
-      margin-left: -95px
+      width: 135%
+      height: 100%
+      margin-left: -20%
       background-image: url('../assets/img/dyldy1-desk.png')
-      background-size: cover
-      background-position: bottom
-      background-repeat: no-repeat
 
     .alef-page1__content-descr
       height: 82%

@@ -50,6 +50,10 @@ html
 body
   margin: 0
 
+@media (min-width: 768px) and (max-width: 989px)
+  body
+    margin: 0 5px
+
 #alef-app
   width: 100%
   height: 100%
@@ -63,6 +67,7 @@ body
   text-align: center
   color: $color-text
   box-sizing: border-box
+  overflow-x: hidden
   div
     box-sizing: border-box
 
@@ -83,6 +88,7 @@ body
   font-stretch: normal
   line-height: 1.38
   letter-spacing: normal
+  text-align: left
   color: $color-text
 
 .alef-text_warning

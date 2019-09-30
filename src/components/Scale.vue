@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style lang="sass">
-
+  .alef-scale
+    z-index: 5
+    position: relative
 </style>
