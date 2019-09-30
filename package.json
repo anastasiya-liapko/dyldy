@@ -12,6 +12,7 @@
     "dotenv": "^8.1.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-numeral-filter": "^1.1.1",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

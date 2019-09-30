@@ -45,7 +45,7 @@ export default {
 @import '@/sass/_variables.sass'
 
 html
-  height: 100%
+  min-height: 100%
 
 body
   margin: 0

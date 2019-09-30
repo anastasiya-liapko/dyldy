@@ -1,7 +1,8 @@
 const state = {
   frame: process.env.VUE_APP_FRAME_SELECTOR,
   frameHeight: '400px',
-  activePage: 1
+  activePage: 1,
+  segmentsQuantity: 4
 }
 
 const mutations = {
@@ -10,13 +11,21 @@ const mutations = {
     var self = this
     setTimeout(function () {
       self.commit('SET_FRAME_HEIGHT')
+      self.commit('SET_CURRENT_HEIGHT_ON_SCALE')
     }, 300)
   },
   'SET_FRAME_HEIGHT' (state) {
     if (state.activePage === 1) {
       state.frameHeight = '400px'
+      state.segmentsQuantity = 4
     } else {
-      state.frameHeight = window.innerWidth < 768 ? 'auto' : '650px'
+      if (window.innerWidth < 768) {
+        state.frameHeight = 'auto'
+        state.segmentsQuantity = 12
+      } else {
+        state.frameHeight = '650px'
+        state.segmentsQuantity = 6
+      }
     }
     var frame = document.querySelector(state.frame)
     frame.style.height = state.frameHeight
@@ -38,6 +47,9 @@ const getters = {
   },
   activePage: state => {
     return state.activePage
+  },
+  segmentsQuantity: state => {
+    return state.segmentsQuantity
   }
 }
 
