@@ -4,7 +4,8 @@
     :url="domen"
     title="personal title"
     description="personal description"
-    inline-template>
+    inline-template
+    >
     <div>
       <network network="facebook">
         <i class="fa fa-facebook"></i> Facebook
@@ -24,6 +25,7 @@ export default {
   computed: {
     domen () {
       return location.origin
+      // context.$router.push({ name: 'order-accept' })
     }
   }
 }
@@ -32,4 +34,11 @@ export default {
 <style lang="sass">
 .alef-page2__social
   min-height: 526px
+  height: 526px
+  background: red
+
+@media (min-width: 768px)
+  .alef-page2__social
+    min-height: 400px
+    height: 400px
 </style>

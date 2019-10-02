@@ -5,6 +5,10 @@ const state = {
 }
 
 const mutations = {
+  'ADD_HEIGHT' (state, value) {
+    state.currentHeight += value
+    this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
+  },
   'SET_CURRENT_HEIGHT' (state, value) {
     state.currentHeight = value
     this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
@@ -26,12 +30,15 @@ const mutations = {
         if (heightValueMax === state.maxHeight && state.currentHeight < state.maxHeight) {
           heights[1].style.opacity = 0
           currentHeight.style.top = heights[1].style.top
+        } else if (state.currentHeight === heightValueMax) {
+          heights[i].style.opacity = 0
+          currentHeight.style.top = heights[i].style.top
         } else if (heightValueMin === state.minHeight) {
           heights[heights.length - 1].style.opacity = 0
           currentHeight.style.top = heights[heights.length - 1].style.top
         } else {
-          heights[i].style.opacity = 0
-          currentHeight.style.top = heights[i].style.top
+          heights[i + 1].style.opacity = 0
+          currentHeight.style.top = heights[i + 1].style.top
         }
         var currentHeightCoords = currentHeight.getBoundingClientRect()
 
@@ -57,6 +64,9 @@ const mutations = {
 }
 
 const actions = {
+  addHeight: ({ commit }, value) => {
+    commit('ADD_HEIGHT', value)
+  },
   setCurrentHeight: ({ commit }, value) => {
     commit('SET_CURRENT_HEIGHT', value)
   },

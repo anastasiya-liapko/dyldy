@@ -107,6 +107,7 @@
 import Button from '@/components/Button.vue'
 import { mapActions } from 'vuex'
 import { required, between, email, numeric } from 'vuelidate/lib/validators'
+import axios from 'axios'
 
 export default {
   name: 'page2Form',
@@ -123,14 +124,10 @@ export default {
   },
   methods: {
     ...mapActions([
+      'addHeight',
       'changeActivePage',
       'switchFlip'
     ]),
-    // submit (e) {
-    //   e.preventDefault()
-    //   console.log('submit')
-    //   // this.changeActivePage(3)
-    // },
     submit (e) {
       var self = this
       e.preventDefault()
@@ -143,12 +140,28 @@ export default {
         // do your submit logic here
         this.submitStatus = 'pending'
         console.log('pending')
-        setTimeout(() => {
-          console.log('ok')
-          self.reset()
-          self.submitStatus = 'success'
-          self.switchFlip()
-        }, 500)
+
+        this.post()
+          .then(result => {
+            console.log(result)
+
+            setTimeout(function () {
+              self.addHeight(parseInt(self.data.height))
+              self.reset()
+              self.submitStatus = 'success'
+              self.switchFlip()
+            }, 1000)
+          }, error => {
+            console.log(error)
+
+            // for test
+            setTimeout(function () {
+              self.addHeight(parseInt(self.data.height))
+              self.reset()
+              self.submitStatus = 'success'
+              self.switchFlip()
+            }, 1000)
+          })
       }
     },
     reset () {
@@ -157,6 +170,18 @@ export default {
         self.data[key] = ''
       })
       self.$v.$reset()
+    },
+    post () {
+      var self = this
+      return new Promise(function (resolve, reject) {
+        axios.post('post.php', self.data)
+          .then(function (response) {
+            resolve(response)
+          })
+          .catch(function (error) {
+            reject(error)
+          })
+      })
     }
   },
   components: {
@@ -188,6 +213,7 @@ export default {
 @import '@/sass/_variables.sass'
 .alef-page2__form
   min-height: 526px
+  height: 526px
   padding-top: 36px
   padding-left: 17px
   padding-right: 16px
