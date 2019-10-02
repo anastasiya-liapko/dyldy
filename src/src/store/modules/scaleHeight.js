@@ -1,5 +1,7 @@
 const state = {
-  currentHeight: 645000
+  currentHeight: 100000,
+  maxHeight: 1000000,
+  minHeight: 0
 }
 
 const mutations = {
@@ -9,27 +11,46 @@ const mutations = {
   },
   'SET_CURRENT_HEIGHT_ON_SCALE' (state) {
     var currentHeight = document.querySelector('.alef-scale__item_type_current')
-    var heights = document.querySelectorAll('.alef-scale__item')
+    var heights = document.querySelectorAll('.alef-scale__item:not(.alef-scale__item_type_current)')
     var heightsL = document.querySelectorAll('.alef-scale__item_size_l:not(.alef-scale__item_type_current)')
 
-    for (var i = 0; i < heights.length; ++i) {
-      heights[i].style.display = 'flex'
-      var heightValue = parseInt(heights[i].getAttribute('data-value'))
+    heights.forEach(function (elem) {
+      elem.style.opacity = 1
+    })
 
-      if (heightValue <= state.currentHeight) {
-        heights[i].style.display = 'none'
-        currentHeight.style.top = heights[i].style.top
+    for (var i = 0; i < heights.length; ++i) {
+      var heightValueMax = parseInt(heights[i].getAttribute('data-value'))
+      var heightValueMin = i + 1 >= heights.length ? 0 : parseInt(heights[i + 1].getAttribute('data-value'))
+
+      if (heightValueMin < state.currentHeight && heightValueMax >= state.currentHeight) {
+        if (heightValueMax === state.maxHeight && state.currentHeight < state.maxHeight) {
+          heights[1].style.opacity = 0
+          currentHeight.style.top = heights[1].style.top
+        } else if (heightValueMin === state.minHeight) {
+          heights[heights.length - 1].style.opacity = 0
+          currentHeight.style.top = heights[heights.length - 1].style.top
+        } else {
+          heights[i].style.opacity = 0
+          currentHeight.style.top = heights[i].style.top
+        }
         var currentHeightCoords = currentHeight.getBoundingClientRect()
 
         heightsL.forEach(function (elem) {
+          elem.classList.remove('active')
+          elem.querySelector('.alef-scale__item-descr').style.opacity = 1
           var heightLCoords = elem.getBoundingClientRect()
 
           if ((heightLCoords.top > currentHeightCoords.top && heightLCoords.top < currentHeightCoords.bottom) || (heightLCoords.bottom > currentHeightCoords.top && heightLCoords.bottom < currentHeightCoords.bottom)) {
-            elem.classList.remove('alef-scale__item_size_l')
-            elem.querySelector('.alef-scale__item-descr').style.display = 'none'
+            elem.classList.add('active')
+            elem.querySelector('.alef-scale__item-descr').style.opacity = 0
           }
         })
-        return false
+      } else if (state.currentHeight > state.maxHeight) {
+        heights[0].style.opacity = 0
+        currentHeight.style.top = heights[0].style.top
+      } else if (state.currentHeight <= state.minHeight) {
+        heights[heights.length - 1].style.opacity = 0
+        currentHeight.style.top = heights[heights.length - 1].style.top
       }
     }
   }
@@ -47,6 +68,12 @@ const actions = {
 const getters = {
   currentHeight: state => {
     return state.currentHeight
+  },
+  maxHeight: state => {
+    return state.maxHeight
+  },
+  minHeight: state => {
+    return state.minHeight
   }
 }
 

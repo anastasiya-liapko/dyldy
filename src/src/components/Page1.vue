@@ -51,7 +51,7 @@ export default {
   justify-content: flex-start
   width: 100%
   height: 100%
-  background-image: linear-gradient(to top, #ffcc08, #ff8400)
+  background-image: linear-gradient(to top, $color-gradient1, $color-gradient2)
 
 .alef-page1__scale
   min-height: 363px
@@ -120,7 +120,7 @@ export default {
 
 @media (min-width: 768px)
   .alef-page1
-    background-image: linear-gradient(to right, #ffcc08, #ff8400)
+    background-image: linear-gradient(to right, $color-gradient1, $color-gradient2)
 
   .alef-page1__scale
     height: 90.75%

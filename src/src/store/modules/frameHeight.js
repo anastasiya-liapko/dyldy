@@ -11,7 +11,6 @@ const mutations = {
     var self = this
     setTimeout(function () {
       self.commit('SET_FRAME_HEIGHT')
-      self.commit('SET_CURRENT_HEIGHT_ON_SCALE')
     }, 300)
   },
   'SET_FRAME_HEIGHT' (state) {
@@ -21,7 +20,6 @@ const mutations = {
     } else {
       if (window.innerWidth < 768) {
         state.frameHeight = 'auto'
-        // state.frameHeight = '1412px'
         state.segmentsQuantity = 12
       } else {
         state.frameHeight = '650px'

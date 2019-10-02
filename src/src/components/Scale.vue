@@ -76,7 +76,10 @@ export default {
     }
   },
   mounted () {
-    this.setCurrentHeightOnScale()
+    var self = this
+    setTimeout(function () {
+      self.setCurrentHeightOnScale()
+    }, 300)
   },
   methods: {
     ...mapActions([
@@ -88,12 +91,12 @@ export default {
     getHeightPosition (i, quantity) {
       return i * this.percents / quantity
     }
+  },
+  watch: {
+    currentHeight: function () {
+      this.setCurrentHeightOnScale()
+    }
   }
-  // watch: {
-  //   currentHeight: function () {
-  //     this.setCurrentHeightOnScale()
-  //   }
-  // }
 }
 </script>
 
@@ -106,7 +109,6 @@ export default {
   display: flex
   align-items: stretch
   width: 29.5%
-  border: 1px solid red
 
 .alef-scale__content
   position: relative
@@ -153,6 +155,9 @@ export default {
     letter-spacing: normal
     color: $color-scale
     white-space: nowrap
+  &.active
+    .alef-scale__item-inner
+      width: 20px
 
 .alef-scale__item_type_current
   .alef-scale__item-descr
@@ -179,6 +184,9 @@ export default {
     .alef-scale__item-descr
       padding: 6px
       font-size: 18px
+    &.active
+      .alef-scale__item-inner
+        width: 40px
 
 @media (min-width: 990px)
   .alef-scale

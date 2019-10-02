@@ -6,10 +6,10 @@
 
 <script>
 import Page1 from '@/components/Page1.vue'
-import Page2 from '@/components/Page2.vue'
+import Page2 from '@/components/Page2/Page2.vue'
 import Page3 from '@/components/Page3.vue'
 import Page4 from '@/components/Page4.vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'home',
