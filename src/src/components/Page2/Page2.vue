@@ -2,9 +2,13 @@
   <div class="alef-page2">
     <app-scale class="alef-page2__scale"></app-scale>
     <div class="alef-page2__content">
-      <transition name="flip" mode="out-in">
-        <component :is="mode"></component>
-      </transition>
+      <!-- <transition name="flip" mode="out-in"> -->
+      <transition-group name="alef-transition-group" class="alef-transition-group" tag="div">
+        <!-- <component :is="mode"></component> -->
+        <app-form v-if="flip" class="alef-transition-group__item" v-bind:key="'app-form'"></app-form>
+        <app-social v-if="!flip" class="alef-transition-group__item" v-bind:key="'app-social'"></app-social>
+      </transition-group>
+      <!-- </transition> -->
       <div class="alef-page2__prizes">
         <h2 class="alef-page2__prizes-title">наши призы!</h2>
         <div class="alef-page2__prizes-wrapper">
@@ -57,38 +61,40 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'page2',
-  data () {
-    return {
-      mode: 'app-form'
-    }
-  },
+  // data () {
+  //   return {
+  //     // mode: 'app-form'
+  //     mode: 'app-social'
+  //   }
+  // },
   computed: {
     ...mapGetters([
       'flip'
     ])
   },
-  created () {
-    this.entered(this.flip)
-  },
-  methods: {
-    entered (flip) {
-      if (flip) {
-        this.mode = 'app-form'
-      } else {
-        this.mode = 'app-social'
-      }
-    }
-  },
+  // created () {
+  //   this.entered(this.flip)
+  // },
+  // methods: {
+    // entered (flip) {
+    //   if (flip) {
+    //     this.mode = 'app-social'
+    //     // this.mode = 'app-form'
+    //   } else {
+    //     this.mode = 'app-social'
+    //   }
+    // }
+  // },
   components: {
     'app-scale': Scale,
     'app-form': Form,
     'app-social': Social
-  },
-  watch: {
-    flip: function () {
-      this.entered(this.flip)
-    }
   }
+  // watch: {
+  //   flip: function () {
+  //     this.entered(this.flip)
+  //   }
+  // }
 }
 </script>
 
@@ -117,6 +123,7 @@ export default {
   align-items: stretch
   justify-content: flex-end
   width: 71%
+  min-height: 1412px
   height: 100%
 
 .alef-page2__prizes
@@ -126,6 +133,7 @@ export default {
   margin-left: -42%
   padding-left: calc(42% + 17px)
   padding-top: 24px
+  padding-bottom: 24px
   padding-right: 15px
   background-image: linear-gradient(to top, $color-gradient1, $color-gradient2)
 
@@ -171,6 +179,7 @@ export default {
   position: relative
   width: 300px
   height: 312px
+  margin-top: auto
 
 .alef-page2__content-img
   position: absolute
@@ -189,6 +198,32 @@ export default {
 .alef-page2__content-img-descr
   display: none
 
+.alef-transition-group
+  position: relative
+  overflow: hidden
+
+.alef-transition-group__item
+  transition: all 1s
+
+.alef-transition-group-enter,
+.alef-transition-group-leave-to
+  height: 526px
+  // opacity: 0
+
+.alef-transition-group-leave-to
+  // opacity: 0
+
+.alef-transition-group-leave-active
+  position: absolute
+
+.alef-transition-group-enter,
+.alef-transition-group-enter-active
+  animation: flip-in-ver-left 0.5s 0.45s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
+
+.alef-transition-group-leave,
+.alef-transition-group-leave-active
+  animation: flip-out-ver-left 0.45s cubic-bezier(0.550, 0.085, 0.680, 0.530) both
+
 @media (min-width: 768px)
   .alef-page2
     position: relative
@@ -203,6 +238,7 @@ export default {
 
   .alef-page2__content
     width: 80.87%
+    min-height: auto
     padding-right: 17.12%
 
   .alef-page2__prizes
@@ -307,6 +343,10 @@ export default {
     letter-spacing: normal
     text-align: left
     color: $color-text
+
+  .alef-transition-group-enter,
+  .alef-transition-group-leave-to
+    height: 400px
 
 @media (min-width: 990px)
   .alef-page2__content

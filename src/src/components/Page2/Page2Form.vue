@@ -217,6 +217,7 @@ export default {
   padding-top: 36px
   padding-left: 17px
   padding-right: 16px
+  background: green
 
 .alef-page2__title
   margin: 0
