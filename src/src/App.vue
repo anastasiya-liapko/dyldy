@@ -28,12 +28,11 @@ export default {
       'setFrameHeight'
     ]),
     debounce () {
-      var self = this
       if (this.lastTimeout !== '') {
         clearTimeout(this.lastTimeout)
       }
-      this.lastTimeout = setTimeout(function () {
-        self.setFrameHeight()
+      this.lastTimeout = setTimeout(() => {
+        this.setFrameHeight()
       }, this.debounceInterval)
     }
   }
@@ -87,7 +86,30 @@ body
   text-align: left
   color: $color-text
 
+.alef-title_size_s
+  font-family: inherit
+  font-size: 14px
+  font-weight: 800
+  font-style: normal
+  font-stretch: normal
+  line-height: 1.43
+  letter-spacing: normal
+  text-transform: uppercase
+  text-align: left
+  color: $color-text
+
 .alef-text
+  font-size: 13px
+  font-weight: 500
+  font-style: normal
+  font-stretch: normal
+  line-height: 1.38
+  letter-spacing: normal
+  text-align: left
+  color: $color-text
+
+.alef-text_size_s
+  font-family: inherit
   font-size: 13px
   font-weight: 500
   font-style: normal
@@ -155,7 +177,15 @@ body
     font-size: 28px
     line-height: 1.29
 
+  .alef-title_size_s
+    font-size: 18px
+    line-height: 1.33
+
   .alef-text
+    font-size: 14px
+    line-height: 1.43
+
+  .alef-text_size_s
     font-size: 14px
     line-height: 1.43
 
@@ -164,7 +194,15 @@ body
     font-size: 32px
     line-height: 1.19
 
+  .alef-title_size_s
+    font-size: 20px
+    line-height: 1.3
+
   .alef-text
+    font-size: 16px
+    line-height: 1.31
+
+  .alef-text_size_s
     font-size: 16px
     line-height: 1.31
 

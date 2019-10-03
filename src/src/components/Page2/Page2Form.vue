@@ -93,7 +93,8 @@
         :class="{active: submitStatus === 'pending'}"
         @click.native="submit"
         type="submit">
-        участвовать
+        <span v-if="submitStatus === 'error'">ошибка</span>
+        <span v-else>участвовать</span>
       </app-button>
       <p class="alef-page2__privacy">
         Отправляя анкету ты соглашаешься с
@@ -119,7 +120,7 @@ export default {
         email: '',
         city: ''
       },
-      submitStatus: 'error'
+      submitStatus: 'success'
     }
   },
   methods: {
@@ -129,15 +130,13 @@ export default {
       'switchFlip'
     ]),
     submit (e) {
-      var self = this
       e.preventDefault()
       console.log('submit!')
       this.$v.$touch()
       if (this.$v.$invalid) {
         console.log('error')
-        this.submitStatus = 'error'
+        // this.submitStatus = 'error'
       } else {
-        // do your submit logic here
         this.submitStatus = 'pending'
         console.log('pending')
 
@@ -145,22 +144,28 @@ export default {
           .then(result => {
             console.log(result)
 
-            setTimeout(function () {
-              self.addHeight(parseInt(self.data.height))
-              self.reset()
-              self.submitStatus = 'success'
-              self.switchFlip()
+            setTimeout(() => {
+              this.addHeight(parseInt(this.data.height))
+              this.reset()
+              this.submitStatus = 'success'
+              this.switchFlip()
             }, 1000)
           }, error => {
             console.log(error)
 
-            // for test
-            setTimeout(function () {
-              self.addHeight(parseInt(self.data.height))
-              self.reset()
-              self.submitStatus = 'success'
-              self.switchFlip()
+            setTimeout(() => {
+              this.addHeight(parseInt(this.data.height))
+              this.reset()
+              this.submitStatus = 'success'
+              this.switchFlip()
             }, 1000)
+
+            // setTimeout(() => {
+            //   this.submitStatus = 'error'
+            //   setTimeout(() => {
+            //     this.submitStatus = 'success'
+            //   }, 2000)
+            // }, 1000)
           })
       }
     },
@@ -212,12 +217,12 @@ export default {
 <style lang="sass">
 @import '@/sass/_variables.sass'
 .alef-page2__form
+  width: 213px
   min-height: 526px
   height: 526px
   padding-top: 36px
   padding-left: 17px
   padding-right: 16px
-  background: green
 
 .alef-page2__title
   margin: 0
@@ -394,6 +399,7 @@ export default {
   .alef-page2__form
     flex-shrink: 0
     // width: 63.75%
+    width: auto
     min-height: 400px
     height: 400px
     margin: 0

@@ -2,13 +2,10 @@
   <div class="alef-page2">
     <app-scale class="alef-page2__scale"></app-scale>
     <div class="alef-page2__content">
-      <!-- <transition name="flip" mode="out-in"> -->
       <transition-group name="alef-transition-group" class="alef-transition-group" tag="div">
-        <!-- <component :is="mode"></component> -->
         <app-form v-if="flip" class="alef-transition-group__item" v-bind:key="'app-form'"></app-form>
         <app-social v-if="!flip" class="alef-transition-group__item" v-bind:key="'app-social'"></app-social>
       </transition-group>
-      <!-- </transition> -->
       <div class="alef-page2__prizes">
         <h2 class="alef-page2__prizes-title">наши призы!</h2>
         <div class="alef-page2__prizes-wrapper">
@@ -54,47 +51,22 @@
 
 <script>
 import Scale from '@/components/Scale.vue'
-// import Button from '@/components/Button.vue'
 import Form from '@/components/Page2/Page2Form.vue'
 import Social from '@/components/Page2/Page2Social.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'page2',
-  // data () {
-  //   return {
-  //     // mode: 'app-form'
-  //     mode: 'app-social'
-  //   }
-  // },
   computed: {
     ...mapGetters([
       'flip'
     ])
   },
-  // created () {
-  //   this.entered(this.flip)
-  // },
-  // methods: {
-    // entered (flip) {
-    //   if (flip) {
-    //     this.mode = 'app-social'
-    //     // this.mode = 'app-form'
-    //   } else {
-    //     this.mode = 'app-social'
-    //   }
-    // }
-  // },
   components: {
     'app-scale': Scale,
     'app-form': Form,
     'app-social': Social
   }
-  // watch: {
-  //   flip: function () {
-  //     this.entered(this.flip)
-  //   }
-  // }
 }
 </script>
 
@@ -203,7 +175,7 @@ export default {
   overflow: hidden
 
 .alef-transition-group__item
-  transition: all 1s
+  transition: height 1s, opacity 1s
 
 .alef-transition-group-enter,
 .alef-transition-group-leave-to

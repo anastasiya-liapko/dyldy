@@ -1,11 +1,15 @@
 const state = {
-  currentHeight: 100000,
+  previousHeight: 0,
+  currentHeight: 0,
   maxHeight: 1000000,
-  minHeight: 0
+  minHeight: 0,
+  addedHeight: 0
 }
 
 const mutations = {
   'ADD_HEIGHT' (state, value) {
+    state.addedHeight = value
+    state.previousHeight = state.currentHeight
     state.currentHeight += value
     this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
   },
@@ -76,6 +80,9 @@ const actions = {
 }
 
 const getters = {
+  previousHeight: state => {
+    return state.previousHeight
+  },
   currentHeight: state => {
     return state.currentHeight
   },
@@ -84,6 +91,9 @@ const getters = {
   },
   minHeight: state => {
     return state.minHeight
+  },
+  addedHeight: state => {
+    return state.addedHeight
   }
 }
 

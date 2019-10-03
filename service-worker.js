@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.d5efdd07bf0780a601940be523499e01.js"
+  "/precache-manifest.9614981768559351432f1a0a699b8e33.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "dyldy"});
