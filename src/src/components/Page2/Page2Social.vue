@@ -9,9 +9,9 @@
       </div>
       <div class="alef-page2__social-header-descr">
         <h2 class="alef-title_size_s alef-page2__social-title2">ты добавила к шкале роста всех участниц</h2>
-        <p class="alef-text_size_s alef-page2__social-subtitle2">
+        <p class="alef-text alef-page2__social-subtitle2">
           Ты занимаешь с
-          <span class="alef-page2__social-height-min">{{ previousHeight }}</span>
+          <span class="alef-page2__social-height-min">{{ (+previousHeight + 1) }}</span>
           по
           <span class="alef-page2__social-height-max">{{ currentHeight }}</span>
             см в ростовой линейке

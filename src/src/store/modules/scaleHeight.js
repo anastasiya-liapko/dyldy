@@ -14,7 +14,9 @@ const mutations = {
     this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
   },
   'SET_CURRENT_HEIGHT' (state, value) {
-    state.currentHeight = value
+    state.previousHeight = state.currentHeight;
+    state.addedHeight = (value - state.previousHeight);
+    state.currentHeight = value;
     this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
   },
   'SET_CURRENT_HEIGHT_ON_SCALE' (state) {

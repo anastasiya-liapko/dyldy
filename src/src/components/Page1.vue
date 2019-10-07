@@ -4,6 +4,7 @@
     <div class="alef-page1__content">
       <div class="alef-page1__content-img-wrapper">
         <div class="alef-page1__content-img"></div>
+        <!-- <div class="alef-page1__content-img"></div> -->
       </div>
       <div class="alef-page1__content-descr">
         <h1 class="alef-title alef-page1__title">давайте станем выше вместе!</h1>
@@ -28,10 +29,32 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'page1',
+  data () {
+    return {
+      cdn: process.env.VUE_APP_CDN_LINK
+    }
+  },
+  mounted () {
+    this.setBackImage()
+    window.addEventListener('resize', this.setBackImage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.setBackImage)
+  },
   methods: {
     ...mapActions([
       'changeActivePage'
-    ])
+    ]),
+    setBackImage () {
+      var img = document.querySelector('.alef-page1__content-img')
+      if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-tablet.png)')
+      } else if (window.innerWidth >= 990) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-desk.png)')
+      } else {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-mob.png)')
+      }
+    }
   },
   components: {
     'app-scale': Scale,
@@ -83,7 +106,7 @@ export default {
   width: 135%
   height: 100%
   margin-left: -33%
-  background-image: url('../assets/img/dyldy1-mob.png')
+  // background-image: url('../assets/img/dyldy1-mob.png')
   background-size: cover
   background-position: bottom
   background-repeat: no-repeat
@@ -140,7 +163,7 @@ export default {
     width: 135%
     height: 100%
     margin-left: -26%
-    background-image: url('../assets/img/dyldy1-tablet.png')
+    // background-image: url('../assets/img/dyldy1-tablet.png')
 
   .alef-page1__content-descr
     order: 2
@@ -177,7 +200,7 @@ export default {
     width: 135%
     height: 100%
     margin-left: -20%
-    background-image: url('../assets/img/dyldy1-desk.png')
+    // background-image: url('../assets/img/dyldy1-desk.png')
 
   .alef-page1__content-descr
     width: 297px

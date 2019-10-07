@@ -10,12 +10,44 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
+      cdn: process.env.VUE_APP_CDN_LINK,
       frameSelector: process.env.VUE_APP_FRAME_SELECTOR,
       debounceInterval: 0,
       lastTimeout: ''
     }
   },
   created () {
+    // document.querySelector('meta[property="vk:image"]').setAttribute("content", `${location.origin}/img/sharing.jpg`);
+    // document.querySelector('meta[property="og:image"]').setAttribute("content", `${location.origin}/img/sharing.jpg`);
+    document.querySelector('meta[property="vk:image"]').setAttribute("content", this.cdn + `/img/sharing.jpg`);
+    document.querySelector('meta[property="og:image"]').setAttribute("content", this.cdn + `/img/sharing.jpg`);
+    var links = document.querySelectorAll('link[rel="preload"]')
+    var stylesheets = document.querySelectorAll('link[rel="stylesheet"]')
+    var scripts = document.querySelectorAll('script')
+    var icons = document.querySelectorAll('link[rel="icon"]')
+    var manifests = document.querySelectorAll('link[rel="manifest"]')
+    links.forEach((link) => {
+      var linkHref = link.getAttribute('href')
+      link.setAttribute('href', this.cdn + linkHref)
+    });
+    stylesheets.forEach((link) => {
+      var linkHref = link.getAttribute('href')
+      if (linkHref !== 'https://use.fontawesome.com/releases/v5.8.2/css/all.css') {
+        link.setAttribute('href', this.cdn + linkHref)
+      }
+    });
+    scripts.forEach((link) => {
+      var linkHref = link.getAttribute('src')
+      link.setAttribute('src', this.cdn + linkHref)
+    });
+    icons.forEach((link) => {
+      var linkHref = link.getAttribute('href')
+      link.setAttribute('href', this.cdn + linkHref)
+    });
+    manifests.forEach((link) => {
+      var linkHref = link.getAttribute('href')
+      link.setAttribute('href', this.cdn + linkHref)
+    });
     this.setFrameHeight()
     window.addEventListener('resize', this.debounce)
     document.querySelector(this.frameSelector).style.transition = 'height 0s 0.3s linear'
@@ -108,17 +140,6 @@ body
   text-align: left
   color: $color-text
 
-.alef-text_size_s
-  font-family: inherit
-  font-size: 13px
-  font-weight: 500
-  font-style: normal
-  font-stretch: normal
-  line-height: 1.38
-  letter-spacing: normal
-  text-align: left
-  color: $color-text
-
 .alef-text_warning
   font-weight: 800
 
@@ -185,10 +206,6 @@ body
     font-size: 14px
     line-height: 1.43
 
-  .alef-text_size_s
-    font-size: 14px
-    line-height: 1.43
-
 @media (min-width: 990px)
   .alef-title
     font-size: 32px
@@ -199,10 +216,6 @@ body
     line-height: 1.3
 
   .alef-text
-    font-size: 16px
-    line-height: 1.31
-
-  .alef-text_size_s
     font-size: 16px
     line-height: 1.31
 

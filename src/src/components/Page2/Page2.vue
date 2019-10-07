@@ -11,28 +11,28 @@
         <div class="alef-page2__prizes-wrapper">
           <div class="alef-page2__prize">
             <div class="alef-page2__prize-img-wrapper">
-              <img class="alef-page2__prize-img" src="@/assets/img/prize1.png" alt="">
+              <img class="alef-page2__prize-img" :src="cdn + '/img/prize1.png'" alt="">
             </div>
             <p class="alef-page2__prize-descr">7 дней подписки на ctc.ru</p>
           </div>
 
           <div class="alef-page2__prize">
             <div class="alef-page2__prize-img-wrapper">
-              <img class="alef-page2__prize-img" src="@/assets/img/prize2.png" alt="">
+              <img class="alef-page2__prize-img" :src="cdn + '/img/prize2.png'" alt="">
             </div>
             <p class="alef-page2__prize-descr">Футболки СТС белая и желтая</p>
           </div>
 
           <div class="alef-page2__prize">
             <div class="alef-page2__prize-img-wrapper">
-              <img class="alef-page2__prize-img" src="@/assets/img/prize3.png" alt="">
+              <img class="alef-page2__prize-img" :src="cdn + '/img/prize3.png'" alt="">
             </div>
             <p class="alef-page2__prize-descr">Толстовка желтая</p>
           </div>
 
           <div class="alef-page2__prize">
             <div class="alef-page2__prize-img-wrapper">
-              <img class="alef-page2__prize-img" src="@/assets/img/prize4.png" alt="">
+              <img class="alef-page2__prize-img" :src="cdn + '/img/prize4.png'" alt="">
             </div>
             <p class="alef-page2__prize-descr">Свитшот черный</p>
           </div>
@@ -57,10 +57,34 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'page2',
+  data () {
+    return {
+      cdn: process.env.VUE_APP_CDN_LINK
+    }
+  },
   computed: {
     ...mapGetters([
       'flip'
     ])
+  },
+  mounted () {
+    this.setBackImage()
+    window.addEventListener('resize', this.setBackImage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.setBackImage)
+  },
+  methods: {
+    setBackImage () {
+      var img = document.querySelector('.alef-page2__content-img')
+      if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-tablet.png)')
+      } else if (window.innerWidth >= 990) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-desk.png)')
+      } else {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-mob.png)')
+      }
+    }
   },
   components: {
     'app-scale': Scale,
@@ -162,7 +186,7 @@ export default {
   width: 180%
   height: 100%
   margin-left: -72%
-  background-image: url('../../assets/img/dyldy2-mob.png')
+  // background-image: url('../../assets/img/dyldy2-mob.png')
   background-size: cover
   background-position: bottom
   background-repeat: no-repeat
@@ -280,7 +304,7 @@ export default {
     width: 150%
     height: 100%
     margin-left: -30%
-    background-image: url('../../assets/img/dyldy2-tablet.png')
+    // background-image: url('../../assets/img/dyldy2-tablet.png')
 
   .alef-page2__content-img-descr
     position: absolute
@@ -351,7 +375,7 @@ export default {
     width: 153%
     height: 100%
     margin-left: -28%
-    background-image: url('../../assets/img/dyldy2-desk.png')
+    // background-image: url('../../assets/img/dyldy2-desk.png')
 
   .alef-page2__content-img-descr
     top: 92px

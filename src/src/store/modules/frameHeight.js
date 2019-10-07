@@ -1,7 +1,7 @@
 const state = {
   frame: process.env.VUE_APP_FRAME_SELECTOR,
   frameHeight: '400px',
-  activePage: 1,
+  activePage: 0,
   segmentsQuantity: 4
 }
 
@@ -14,7 +14,7 @@ const mutations = {
     }, 300)
   },
   'SET_FRAME_HEIGHT' (state) {
-    if (state.activePage === 1) {
+    if (state.activePage === 0 || state.activePage === 1 || state.activePage === 5) {
       state.frameHeight = '400px'
       state.segmentsQuantity = 4
     } else {

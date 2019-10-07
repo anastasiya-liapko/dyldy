@@ -27,16 +27,40 @@
 </template>
 
 <script>
+
+import {mapGetters} from 'vuex';
 import Scale from '@/components/Scale.vue'
 
 export default {
   data () {
     return {
-      participantId: 1588
+      cdn: process.env.VUE_APP_CDN_LINK
     }
   },
   components: {
     'app-scale': Scale
+  },
+  computed: {
+    ...mapGetters(['participantId']),
+  },
+  mounted () {
+    this.setBackImage()
+    window.addEventListener('resize', this.setBackImage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.setBackImage)
+  },
+  methods: {
+    setBackImage () {
+      var img = document.querySelector('.alef-page4__content-img')
+      if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-tablet.png)')
+      } else if (window.innerWidth >= 990) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-desk.png)')
+      } else {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-mob.png)')
+      }
+    }
   }
 }
 </script>
@@ -129,7 +153,7 @@ export default {
   width: 147%
   height: 100%
   margin-left: -30%
-  background-image: url('../assets/img/dyldy4-mob.png')
+  // background-image: url('../assets/img/dyldy4-mob.png')
   background-size: cover
   background-position: bottom
   background-repeat: no-repeat
@@ -217,7 +241,7 @@ export default {
     width: 130%
     height: 100%
     margin-left: -33%
-    background-image: url('../assets/img/dyldy4-tablet.png')
+    // background-image: url('../assets/img/dyldy4-tablet.png')
 
   .alef-page4__content-img-number
     top: 46%
@@ -265,7 +289,7 @@ export default {
     width: 133%
     height: 100%
     margin-left: -22%
-    background-image: url('../assets/img/dyldy4-desk.png')
+    // background-image: url('../assets/img/dyldy4-desk.png')
 
   .alef-page4__content-img-number
     top: 53%

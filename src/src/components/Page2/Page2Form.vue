@@ -54,12 +54,12 @@
       <div class="alef-page2__form-input-field">
         <input
           class="alef-page2__form-input"
-          :class="{invalid: $v.data.email.$error}"
+          :class="{invalid: $v.data.email.$error || !valid}"
           v-model="data.email"
           type="text"
           name="email"
           placeholder="email"
-          @blur="$v.data.email.$touch()">
+          @blur="touchEmail()">
         <p class="alef-page2__error-text"
           v-if="!$v.data.email.required && $v.data.email.$dirty">
           <span class="alef-page2__error-text-descr">Обязательное поле</span>
@@ -69,6 +69,10 @@
           v-if="!$v.data.email.email && $v.data.email.$dirty">
           <span class="alef-page2__error-text-descr">укажите в формате</span>
           <span class="alef-page2__error-text-value" style="text-transform: lowercase">example@email.com</span>
+        </p>
+        <p class="alef-page2__error-text"
+          v-if="!valid">
+          <span class="alef-page2__error-text-descr">{{ errorText }}</span>
         </p>
       </div>
       <div class="alef-page2__form-input-field">
@@ -98,7 +102,7 @@
       </app-button>
       <p class="alef-page2__privacy">
         Отправляя анкету ты соглашаешься с
-        <a href="#" class="alef-page2__privacy-link">правилами конкурса</a>
+        <a href="files/rules.pdf" class="alef-page2__privacy-link" target="_blank">правилами конкурса</a>
       </p>
     </div>
   </form>
@@ -106,7 +110,7 @@
 
 <script>
 import Button from '@/components/Button.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { required, between, email, numeric } from 'vuelidate/lib/validators'
 import axios from 'axios'
 
@@ -120,15 +124,19 @@ export default {
         email: '',
         city: ''
       },
-      submitStatus: 'success'
+      submitStatus: 'success',
+      valid: 1,
+      errorText: ''
     }
   },
   methods: {
     ...mapActions([
       'addHeight',
       'changeActivePage',
-      'switchFlip'
+      'switchFlip',
+      'setCurrentHeight',
     ]),
+    ...mapMutations(['setParticipantId']),
     submit (e) {
       e.preventDefault()
       console.log('submit!')
@@ -142,30 +150,30 @@ export default {
 
         this.post()
           .then(result => {
-            console.log(result)
-
-            setTimeout(() => {
-              this.addHeight(parseInt(this.data.height))
-              this.reset()
-              this.submitStatus = 'success'
-              this.switchFlip()
-            }, 1000)
+            if(result.status) {
+              this.setCurrentHeight(parseInt(result.toll))
+              this.reset();
+              this.setParticipantId(result.value);
+              this.submitStatus = 'success';
+              this.switchFlip();
+            } else {
+              console.log('Message:', result.message);
+              this.valid = 0
+              this.errorText = result.message
+              setTimeout(() => {
+                this.submitStatus = 'error'
+                setTimeout(() => {
+                  this.submitStatus = 'success'
+                }, 2000)
+              }, 1000)
+            }
           }, error => {
-            console.log(error)
-
             setTimeout(() => {
-              this.addHeight(parseInt(this.data.height))
-              this.reset()
-              this.submitStatus = 'success'
-              this.switchFlip()
+              this.submitStatus = 'error'
+              setTimeout(() => {
+                this.submitStatus = 'success'
+              }, 2000)
             }, 1000)
-
-            // setTimeout(() => {
-            //   this.submitStatus = 'error'
-            //   setTimeout(() => {
-            //     this.submitStatus = 'success'
-            //   }, 2000)
-            // }, 1000)
           })
       }
     },
@@ -177,16 +185,35 @@ export default {
       self.$v.$reset()
     },
     post () {
-      var self = this
-      return new Promise(function (resolve, reject) {
-        axios.post('post.php', self.data)
-          .then(function (response) {
-            resolve(response)
-          })
-          .catch(function (error) {
-            reject(error)
-          })
-      })
+      const dt = new FormData();
+      dt.append('name', this.data.name);
+      dt.append('email', this.data.email);
+      dt.append('toll', this.data.height);
+      dt.append('city', this.data.city);
+
+      const PARAM = {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        cache: 'no-cache',
+        body: dt,
+      };
+
+      return fetch('/api/add.php', PARAM)
+                .then(ans => {
+                  if(!ans.ok) {
+                    throw Error(ans.statusText);
+                  }
+                  return ans.json();
+                })
+                .catch(Err => {
+                  console.log(Err)
+                  throw Error(Err);
+                });
+    },
+    touchEmail () {
+      this.$v.data.email.$touch()
+      this.valid = 1
     }
   },
   components: {
@@ -339,6 +366,7 @@ export default {
   justify-content: center
   height: 100%
   margin: 0
+  text-align: left
   opacity: 1
   pointer-events: none
   transition: opacity 0.3s linear

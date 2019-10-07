@@ -75,14 +75,12 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     }
   },
-  mounted () {
-    var self = this
-    setTimeout(function () {
-      self.setCurrentHeightOnScale()
-    }, 300)
-  },
+  // mounted () {
+  //   this.getRemoteValue();
+  // },
   methods: {
     ...mapActions([
+      'setCurrentHeight',
       'setCurrentHeightOnScale'
     ]),
     getHeightValue (i, quantity) {
@@ -90,7 +88,26 @@ export default {
     },
     getHeightPosition (i, quantity) {
       return i * this.percents / quantity
-    }
+    },
+    // getRemoteValue() {
+    //   const PARAM = {
+    //     method: 'GET',
+    //     mode: 'cors',
+    //     credentials: 'include',
+    //     cache: 'no-cache',
+    //   };
+
+    //   fetch('/api/json.php', PARAM)
+    //   .then(ans => {
+    //     if(!ans.ok) {
+    //       throw Error(ans.statusText);
+    //     }
+    //     return ans.json();
+    //   })
+    //   .then(response => {
+    //     this.setCurrentHeight(+response.value);
+    //   });
+    // },
   },
   watch: {
     currentHeight: function () {
