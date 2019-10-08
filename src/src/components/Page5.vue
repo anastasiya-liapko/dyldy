@@ -55,6 +55,7 @@ export default {
     ])
   },
   mounted () {
+    console.log(this.participantId)
     this.setBackImage()
     window.addEventListener('resize', this.setBackImage)
   },

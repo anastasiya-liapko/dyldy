@@ -23,15 +23,16 @@ export default {
     ...mapGetters([
       'activePage',
       'currentHeight',
-      'maxHeight'
+      'maxHeight',
+      'participantId'
     ])
   },
   created () {
     this.getRemoteValue()
       .then(response => {
-        // console.log(response)
         this.setCurrentHeight(+response.value)
-        this.setParticipantId(response.count);
+        this.setParticipantId(response.count)
+        console.log(this.participantId)
         this.checkPage()
       }, error => {
         console.log(error)

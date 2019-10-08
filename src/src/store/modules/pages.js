@@ -1,20 +1,23 @@
 const state = {
   flip: true,
-  participantId: 0,
+  participantId: 0
 }
 
 const mutations = {
   'SWITCH_FLIP' () {
     state.flip = !state.flip
   },
-  setParticipantId(state, v) {
-    state.participantId = v;
-  },
+  'SET_PARTICIPANT_ID' (state, v) {
+    state.participantId = v
+  }
 }
 
 const actions = {
   switchFlip: ({ commit }) => {
     commit('SWITCH_FLIP')
+  },
+  setParticipantId: ({ commit }, v) => {
+    commit('SET_PARTICIPANT_ID', v)
   }
 }
 
@@ -23,8 +26,8 @@ const getters = {
     return state.flip
   },
   participantId: (state) => {
-    return state.participantId;
-  },
+    return state.participantId
+  }
 }
 
 export default {

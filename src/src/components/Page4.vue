@@ -292,7 +292,7 @@ export default {
     // background-image: url('../assets/img/dyldy4-desk.png')
 
   .alef-page4__content-img-number
-    top: 36%
+    top: 53%
     left: 35%
     width: 180px
     height: 106px

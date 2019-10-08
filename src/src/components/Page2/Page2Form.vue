@@ -110,7 +110,7 @@
 
 <script>
 import Button from '@/components/Button.vue'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import { required, between, email, numeric } from 'vuelidate/lib/validators'
 import axios from 'axios'
 
@@ -135,8 +135,8 @@ export default {
       'changeActivePage',
       'switchFlip',
       'setCurrentHeight',
+      'setParticipantId'
     ]),
-    ...mapMutations(['setParticipantId']),
     submit (e) {
       e.preventDefault()
       console.log('submit!')
@@ -151,11 +151,12 @@ export default {
         this.post()
           .then(result => {
             if(result.status) {
+              console.log(result)
               this.setCurrentHeight(parseInt(result.toll))
               this.reset();
-              this.setParticipantId(result.value);
-              this.submitStatus = 'success';
-              this.switchFlip();
+              this.setParticipantId(result.value)
+              this.submitStatus = 'success'
+              this.switchFlip()
             } else {
               console.log('Message:', result.message);
               this.valid = 0

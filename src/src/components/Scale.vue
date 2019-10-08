@@ -78,6 +78,7 @@ export default {
   mounted () {
     console.log(this.currentHeight)
     // this.getRemoteValue();
+    this.setCurrentHeightOnScale()
   },
   methods: {
     ...mapActions([
@@ -111,9 +112,8 @@ export default {
     // },
   },
   watch: {
-    currentHeight: function (val) {
-      console.log(val)
-      this.setCurrentHeightOnScale(val)
+    currentHeight: function () {
+      this.setCurrentHeightOnScale()
     }
   }
 }
