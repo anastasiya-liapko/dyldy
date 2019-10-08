@@ -21,9 +21,9 @@ export default {
     // document.querySelector('meta[property="og:image"]').setAttribute("content", `${location.origin}/img/sharing.jpg`);
     document.querySelector('meta[property="vk:image"]').setAttribute("content", this.cdn + `/img/sharing.jpg`);
     document.querySelector('meta[property="og:image"]').setAttribute("content", this.cdn + `/img/sharing.jpg`);
-    var links = document.querySelectorAll('link[rel="preload"]')
+    var links = document.querySelectorAll('link[rel="preload"][as="style"]')
     var stylesheets = document.querySelectorAll('link[rel="stylesheet"]')
-    var scripts = document.querySelectorAll('script')
+    // var scripts = document.querySelectorAll('script')
     var icons = document.querySelectorAll('link[rel="icon"]')
     var manifests = document.querySelectorAll('link[rel="manifest"]')
     links.forEach((link) => {
@@ -36,10 +36,10 @@ export default {
         link.setAttribute('href', this.cdn + linkHref)
       }
     });
-    scripts.forEach((link) => {
-      var linkHref = link.getAttribute('src')
-      link.setAttribute('src', this.cdn + linkHref)
-    });
+    // scripts.forEach((link) => {
+    //   var linkHref = link.getAttribute('src')
+    //   link.setAttribute('src', this.cdn + linkHref)
+    // });
     icons.forEach((link) => {
       var linkHref = link.getAttribute('href')
       link.setAttribute('href', this.cdn + linkHref)
@@ -51,6 +51,103 @@ export default {
     this.setFrameHeight()
     window.addEventListener('resize', this.debounce)
     document.querySelector(this.frameSelector).style.transition = 'height 0s 0.3s linear'
+
+    // fonts
+    var newStyle = document.createElement('style')
+    newStyle.appendChild(document.createTextNode("\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Bold.eot');\
+      src: url('/fonts/sans/CTCSans-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Bold.woff2') format('woff2'), url('/fonts/sans/CTCSans-Bold.woff') format('woff'), url('/fonts/sans/CTCSans-Bold.ttf') format('truetype');\
+      font-weight: 600;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Italic.eot');\
+      src: url('/fonts/sans/CTCSans-Italic.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Italic.woff2') format('woff2'), url('/fonts/sans/CTCSans-Italic.woff') format('woff'), url('/fonts/sans/CTCSans-Italic.ttf') format('truetype');\
+      font-weight: 400;\
+      font-style: italic;\
+    }\
+    @font-face {\
+      font-family: 'DIN Pro';\
+      src: url('/fonts/sans/DINPro.eot');\
+      src: url('/fonts/sans/DINPro.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/DINPro.woff2') format('woff2'), url('/fonts/sans/DINPro.woff') format('woff'), url('/fonts/sans/DINPro.ttf') format('truetype');\
+      font-weight: 400;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-ExtraBold.eot');\
+      src: url('/fonts/sans/CTCSans-ExtraBold.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-ExtraBold.woff2') format('woff2'), url('/fonts/sans/CTCSans-ExtraBold.woff') format('woff'), url('/fonts/sans/CTCSans-ExtraBold.ttf') format('truetype');\
+      font-weight: 800;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Regular.eot');\
+      src: url('/fonts/sans/CTCSans-Regular.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Regular.woff2') format('woff2'), url('/fonts/sans/CTCSans-Regular.woff') format('woff'), url('/fonts/sans/CTCSans-Regular.ttf') format('truetype');\
+      font-weight: 300;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-ExtraBoldItalic.eot');\
+      src: url('/fonts/sans/CTCSans-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-ExtraBoldItalic.woff2') format('woff2'), url('/fonts/sans/CTCSans-ExtraBoldItalic.woff') format('woff'), url('/fonts/sans/CTCSans-ExtraBoldItalic.ttf') format('truetype');\
+      font-weight: 800;\
+      font-style: italic;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Thin.eot');\
+      src: url('/fonts/sans/CTCSans-Thin.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Thin.woff2') format('woff2'), url('/fonts/sans/CTCSans-Thin.woff') format('woff'), url('/fonts/sans/CTCSans-Thin.ttf') format('truetype');\
+      font-weight: 100;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'DIN Pro';\
+      src: url('/fonts/sans/DINPro-Medium.eot');\
+      src: url('/fonts/sans/DINPro-Medium.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/DINPro-Medium.woff2') format('woff2'), url('/fonts/sans/DINPro-Medium.woff') format('woff'), url('/fonts/sans/DINPro-Medium.ttf') format('truetype');\
+      font-weight: 500;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'DIN Pro';\
+      src: url('/fonts/sans/DINPro-Bold.eot');\
+      src: url('/fonts/sans/DINPro-Bold.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/DINPro-Bold.woff2') format('woff2'), url('/fonts/sans/DINPro-Bold.woff') format('woff'), url('/fonts/sans/DINPro-Bold.ttf') format('truetype');\
+      font-weight: 700;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Black.eot');\
+      src: url('/fonts/sans/CTCSans-Black.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Black.woff2') format('woff2'), url('/fonts/sans/CTCSans-Black.woff') format('woff'), url('/fonts/sans/CTCSans-Black.ttf') format('truetype');\
+      font-weight: 900;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-BoldItalic.eot');\
+      src: url('/fonts/sans/CTCSans-BoldItalic.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-BoldItalic.woff2') format('woff2'), url('/fonts/sans/CTCSans-BoldItalic.woff') format('woff'), url('/fonts/sans/CTCSans-BoldItalic.ttf') format('truetype');\
+      font-weight: 700;\
+      font-style: italic;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-Medium.eot');\
+      src: url('/fonts/sans/CTCSans-Medium.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-Medium.woff2') format('woff2'), url('/fonts/sans/CTCSans-Medium.woff') format('woff'), url('/fonts/sans/CTCSans-Medium.ttf') format('truetype');\
+      font-weight: 500;\
+      font-style: normal;\
+    }\
+    @font-face {\
+      font-family: 'CTC_Sans';\
+      src: url('/fonts/sans/CTCSans-MediumItalic.eot');\
+      src: url('/fonts/sans/CTCSans-MediumItalic.eot?#iefix') format('embedded-opentype'), url('/fonts/sans/CTCSans-MediumItalic.woff2') format('woff2'), url('/fonts/sans/CTCSans-MediumItalic.woff') format('woff'), url('/fonts/sans/CTCSans-MediumItalic.ttf') format('truetype');\
+      font-weight: 500;\
+      font-style: italic;\
+    }\
+    "));
+    document.head.appendChild(newStyle);
   },
   beforeDestroy: function () {
     window.removeEventListener('resize', this.debounce)

@@ -14,10 +14,10 @@
               v-if="iM === 2"
               class="alef-page5__scale-item-descr">
               <p class="alef-page5__title alef-page5__title_position_1">мы набрали</p>
-              <p class="alef-page5__goal">1 000 000 <span class="alef-page5__goal-sm">см</span></p>
+              <p class="alef-page5__goal">{{ currentHeight }} <span class="alef-page5__goal-sm">см</span></p>
               <p class="alef-page5__title alef-page5__title_position_2">
                 благодаря
-                <span class="alef-page5__total-participants">5 800</span>
+                <span class="alef-page5__total-participants">{{ participantId }}</span>
                  участницам!
               </p>
               <p class="alef-page5__subtitle">Регистрация закрыта</p>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -45,6 +47,12 @@ export default {
       q2: 4,
       cdn: process.env.VUE_APP_CDN_LINK
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentHeight',
+      'participantId'
+    ])
   },
   mounted () {
     this.setBackImage()
@@ -56,10 +64,10 @@ export default {
   methods: {
     setBackImage () {
       var img = document.querySelector('.alef-page5__img')
-      if (window.innerWidth >= 768) {
-        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy5-tablet.png)')
-      } else if (window.innerWidth >= 990) {
+      if (window.innerWidth >= 990) {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy5-desk.png)')
+      } else if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy5-tablet.png)')
       } else {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy5-mob.png)')
       }

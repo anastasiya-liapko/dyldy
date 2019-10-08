@@ -47,10 +47,10 @@ export default {
     ]),
     setBackImage () {
       var img = document.querySelector('.alef-page1__content-img')
-      if (window.innerWidth >= 768) {
-        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-tablet.png)')
-      } else if (window.innerWidth >= 990) {
+      if (window.innerWidth >= 990) {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-desk.png)')
+      } else if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-tablet.png)')
       } else {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy1-mob.png)')
       }

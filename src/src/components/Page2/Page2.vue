@@ -77,10 +77,10 @@ export default {
   methods: {
     setBackImage () {
       var img = document.querySelector('.alef-page2__content-img')
-      if (window.innerWidth >= 768) {
-        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-tablet.png)')
-      } else if (window.innerWidth >= 990) {
-        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-desk.png)')
+      if (window.innerWidth >= 990) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-desk-new.png)')
+      } else if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-tablet-new.png)')
       } else {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy2-mob.png)')
       }
@@ -195,7 +195,9 @@ export default {
   display: none
 
 .alef-transition-group
+  z-index: 1
   position: relative
+  flex-shrink: 0
   overflow: hidden
 
 .alef-transition-group__item
@@ -298,7 +300,9 @@ export default {
 
   .alef-page2__content-img-wrapper
     width: 374px
-    height: 255px
+    // height: 255px
+    height: 350px
+    margin-top: -100px
 
   .alef-page2__content-img
     width: 150%
@@ -308,7 +312,7 @@ export default {
 
   .alef-page2__content-img-descr
     position: absolute
-    top: 96px
+    top: 196px
     right: -80px
     display: block
 
@@ -369,7 +373,8 @@ export default {
 
   .alef-page2__content-img-wrapper
     width: 462px
-    height: 250px
+    // height: 250px
+    height: 450px
 
   .alef-page2__content-img
     width: 153%
@@ -378,7 +383,7 @@ export default {
     // background-image: url('../../assets/img/dyldy2-desk.png')
 
   .alef-page2__content-img-descr
-    top: 92px
+    top: 192px
     right: -147px
 
   .alef-page2__content-img-time

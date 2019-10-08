@@ -53,10 +53,10 @@ export default {
   methods: {
     setBackImage () {
       var img = document.querySelector('.alef-page4__content-img')
-      if (window.innerWidth >= 768) {
-        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-tablet.png)')
-      } else if (window.innerWidth >= 990) {
+      if (window.innerWidth >= 990) {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-desk.png)')
+      } else if (window.innerWidth >= 768) {
+        img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-tablet.png)')
       } else {
         img.setAttribute('style', 'background-image: url(' + this.cdn + '/img/dyldy4-mob.png)')
       }
@@ -292,7 +292,7 @@ export default {
     // background-image: url('../assets/img/dyldy4-desk.png')
 
   .alef-page4__content-img-number
-    top: 53%
+    top: 36%
     left: 35%
     width: 180px
     height: 106px

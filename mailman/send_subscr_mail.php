@@ -14,19 +14,19 @@ class EmailSender {
     $path = 'https://'.$_SERVER['HTTP_HOST'].'/mailman/templates';
     
     $fontSize = 42;
-    $mb = 48;
+    $mb = 36;
     switch(strlen($number.'')) {
       case 3:
         $fontSize = 52;
-        $mb = 42;
+        $mb = 36;
       break;
       case 2:
         $fontSize = 68;
-        $mb = 30;
+        $mb = 28;
       break;
       case 1:
         $fontSize = 82;
-        $mb = 36;
+        $mb = 24;
       break;
     }
 
@@ -36,12 +36,18 @@ class EmailSender {
     $tmpl = file_get_contents(__DIR__.'/templates/register.html');
     $tmpl = str_replace($from, $to, $tmpl);
 
-    self::sendEmail($email, $subj, $tmpl);
+    $response = self::sendEmail($email, $subj, $tmpl);
+    $response = json_decode($response, true);
+    if(intval($response['status']) == 0) {
+      $query = "UPDATE tolls SET email_register_sent = ? WHERE id = ?";
+      $time = time();
+      SQL::qi($query, [$time, $number]);
+    }
   }
 
   public static function sendFinish() {
     $query = "SELECT id, email FROM tolls";
-    $emails = q($query, []);
+    $emails = SQL::q($query, []);
     $path = 'https://'.$_SERVER['HTTP_HOST'].'/mailman/templates';
     $subj = "Игра окончена";
     $from = ['{{path}}', '{{number}}'];
@@ -50,7 +56,13 @@ class EmailSender {
     foreach($emails as $e) {
       $tmpl = str_replace($from, [$path, $e['id']], $tmpl);
       
-      self::sendEmail($e, $subj, $tmpl);
+      $response = self::sendEmail($e, $subj, $tmpl);
+      $response = json_decode($response, true);
+      if(intval($response['status']) == 0) {
+        $query = "UPDATE tolls SET email_finish_sent = ? WHERE id = ?";
+        $time = time();
+        SQL::qi($query, [$time, $e['id']]);
+      }
     }
   }
 

@@ -24,7 +24,7 @@
       <h2 class="alef-title_size_s alef-page2__social-title2 alef-page2__social-title2_type_share">поделиться:</h2>
       <social-sharing
         class="alef-page2__social-items"
-        :url="domen"
+        :url="'https://ctc.ru/projects/serials/dyldy/#million'"
         title="Поздравляем! Ты в команде #Дылды"
         inline-template
         @close="close">

@@ -75,9 +75,10 @@ export default {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     }
   },
-  // mounted () {
-  //   this.getRemoteValue();
-  // },
+  mounted () {
+    console.log(this.currentHeight)
+    // this.getRemoteValue();
+  },
   methods: {
     ...mapActions([
       'setCurrentHeight',
@@ -110,8 +111,9 @@ export default {
     // },
   },
   watch: {
-    currentHeight: function () {
-      this.setCurrentHeightOnScale()
+    currentHeight: function (val) {
+      console.log(val)
+      this.setCurrentHeightOnScale(val)
     }
   }
 }

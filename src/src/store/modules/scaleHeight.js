@@ -11,15 +11,15 @@ const mutations = {
     state.addedHeight = value
     state.previousHeight = state.currentHeight
     state.currentHeight += value
-    this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
+    this.commit('SET_CURRENT_HEIGHT_ON_SCALE', state.currentHeight)
   },
   'SET_CURRENT_HEIGHT' (state, value) {
     state.previousHeight = state.currentHeight;
     state.addedHeight = (value - state.previousHeight);
     state.currentHeight = value;
-    this.commit('SET_CURRENT_HEIGHT_ON_SCALE')
+    this.commit('SET_CURRENT_HEIGHT_ON_SCALE', state.currentHeight)
   },
-  'SET_CURRENT_HEIGHT_ON_SCALE' (state) {
+  'SET_CURRENT_HEIGHT_ON_SCALE' (state, val) {
     var currentHeight = document.querySelector('.alef-scale__item_type_current')
     var heights = document.querySelectorAll('.alef-scale__item:not(.alef-scale__item_type_current)')
     var heightsL = document.querySelectorAll('.alef-scale__item_size_l:not(.alef-scale__item_type_current)')
@@ -32,11 +32,11 @@ const mutations = {
       var heightValueMax = parseInt(heights[i].getAttribute('data-value'))
       var heightValueMin = i + 1 >= heights.length ? 0 : parseInt(heights[i + 1].getAttribute('data-value'))
 
-      if (heightValueMin < state.currentHeight && heightValueMax >= state.currentHeight) {
-        if (heightValueMax === state.maxHeight && state.currentHeight < state.maxHeight) {
+      if (heightValueMin < val && heightValueMax >= val) {
+        if (heightValueMax === state.maxHeight && val < state.maxHeight) {
           heights[1].style.opacity = 0
           currentHeight.style.top = heights[1].style.top
-        } else if (state.currentHeight === heightValueMax) {
+        } else if (val === heightValueMax) {
           heights[i].style.opacity = 0
           currentHeight.style.top = heights[i].style.top
         } else if (heightValueMin === state.minHeight) {
@@ -58,10 +58,10 @@ const mutations = {
             elem.querySelector('.alef-scale__item-descr').style.opacity = 0
           }
         })
-      } else if (state.currentHeight > state.maxHeight) {
+      } else if (val > state.maxHeight) {
         heights[0].style.opacity = 0
         currentHeight.style.top = heights[0].style.top
-      } else if (state.currentHeight <= state.minHeight) {
+      } else if (val <= state.minHeight) {
         heights[heights.length - 1].style.opacity = 0
         currentHeight.style.top = heights[heights.length - 1].style.top
       }
@@ -76,8 +76,8 @@ const actions = {
   setCurrentHeight: ({ commit }, value) => {
     commit('SET_CURRENT_HEIGHT', value)
   },
-  setCurrentHeightOnScale: ({ commit }) => {
-    commit('SET_CURRENT_HEIGHT_ON_SCALE')
+  setCurrentHeightOnScale: ({ commit }, val) => {
+    commit('SET_CURRENT_HEIGHT_ON_SCALE', val)
   }
 }
 

@@ -190,13 +190,14 @@ export default {
       dt.append('email', this.data.email);
       dt.append('toll', this.data.height);
       dt.append('city', this.data.city);
+      dt.append('sig', MD5(`${this.data.height}${this.data.email}fnuwuqqxweu23c23f`));
 
       const PARAM = {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
         cache: 'no-cache',
-        body: dt,
+        body: dt
       };
 
       return fetch('/api/add.php', PARAM)

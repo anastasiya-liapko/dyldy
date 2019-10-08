@@ -29,8 +29,9 @@ export default {
   created () {
     this.getRemoteValue()
       .then(response => {
-        console.log(response)
+        // console.log(response)
         this.setCurrentHeight(+response.value)
+        this.setParticipantId(response.count);
         this.checkPage()
       }, error => {
         console.log(error)
@@ -39,7 +40,8 @@ export default {
   methods: {
     ...mapActions([
       'changeActivePage',
-      'setCurrentHeight'
+      'setCurrentHeight',
+      'setParticipantId'
     ]),
     getRemoteValue() {
       const PARAM = {
@@ -56,26 +58,16 @@ export default {
           }
           return ans.json();
         })
-        // .then(response => {
-        //   this.setCurrentHeight(+response.value)
-        // });
     },
     checkPage () {
-      console.log(this.currentHeight)
       var page = this.currentHeight >= this.maxHeight ? 5 : 1
-      console.log(page)
       this.changeActivePage(page)
     }
   },
   watch: {
     activePage: function (val) {
       this.mode = 'app-page' + val
-    },
-    // currentHeight: function (val) {
-    //   console.log(val)
-    //   var page = val >= this.maxHeight ? 5 : 1
-    //   this.changeActivePage(page)
-    // }
+    }
   },
   components: {
     'app-page1': Page1,
